@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FiTrash } from "react-icons/fi";
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
       setTasks(updatedTasks);
       setTaskInput("");
       localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      toast.success("Task Added!");
     }
   };
 
@@ -39,12 +41,14 @@ export default function Home() {
     });
     setTasks(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    // toast.success("Task Completed!");
   };
 
   const handleTaskRemoval = (taskId) => {
     const updatedTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(updatedTasks);
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    toast.success("Task Removed!");
   };
 
   const title = "TaskTrackrr | Homepage";
@@ -52,6 +56,10 @@ export default function Home() {
   return (
     <div>
       <title>{title}</title>
+      <div>
+        <Toaster />
+      </div>
+
       <div className="backgroundBlack">
         <Image
           src="/logo.png"
