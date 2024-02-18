@@ -1,107 +1,205 @@
-:root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-
-  --primary-glow: conic-gradient(
-    from 180deg at 50% 50%,
-    #16abff33 0deg,
-    #0885ff33 55deg,
-    #54d6ff33 120deg,
-    #0071ff33 160deg,
-    transparent 360deg
-  );
-  --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
-
-  --tile-start-rgb: 239, 245, 249;
-  --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
-
-  --callout-rgb: 238, 240, 241;
-  --callout-border-rgb: 172, 175, 176;
-  --card-rgb: 180, 185, 188;
-  --card-border-rgb: 131, 134, 135;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
-
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
-
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
-}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
 * {
-  box-sizing: border-box;
-  padding: 0;
   margin: 0;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: #1a1a1a;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.tasksContainer {
+  padding-bottom: 50px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.imgLogo {
+  display: flex;
+  margin: auto;
+  padding-top: 75px;
+}
+
+.backgroundBlack {
+  background: #0d0d0d;
+  height: 200px;
+  width: 100%;
+}
+
+.content {
+  color: white;
+  margin: 0 auto;
+  text-align: center;
+  width: 736px;
+  margin-top: 19px;
+}
+
+.upperContent {
+  text-align: center;
+  margin: 0 auto;
+  width: 736px;
+  padding-top: 32px;
+}
+
+.addTaskInput {
+  width: 86%;
+  height: 54px;
+  border: none;
+  border-radius: 8px;
+  padding: 0 10px;
+  margin-top: 10px;
+  background-color: #333333;
+  color: white;
+}
+
+.addTaskInput:focus {
+  outline: none;
+  border: 1px solid #5e60ce;
+}
+
+.addTaskButton {
+  width: 90px;
+  height: 54px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 15px;
+  background-color: #1e6f9f;
+  color: white;
+  font-weight: bold;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: ease-in 0.3s background-color;
+}
+
+.addTaskButton:hover {
+  background-color: #4ea8de;
+}
+
+.addTaskButton .flex {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  margin-top: 2px;
+}
+
+.taskCreatedP {
+  margin-top: 1px;
+  color: #4ea8de;
+  font-weight: bold;
+}
+
+.taskCompletedP {
+  margin-top: 1px;
+  color: #8284fa;
+  font-weight: bold;
+}
+
+.counter {
+  background-color: #333333;
+  margin-left: 8px;
+  border-radius: 999px;
+  width: 25px;
+  padding: 2px 8px;
+}
+
+.flex2 {
+  display: flex;
+}
+
+.sp {
+  justify-content: space-between;
+  padding-top: 64px;
+}
+
+.noTasks {
+  color: #808080;
+  border-top: 1px solid #333333;
+  padding: 64px;
+  margin-top: 24px;
+}
+
+.nothingParagraph {
+  padding-top: 16px;
+}
+
+.nothingParagraph :first-child {
+  font-weight: bold;
+  font-size: 19px;
+  margin-bottom: 5px;
+}
+
+.task {
+  display: flex;
+  background-color: #262626;
+  margin-top: 15px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.taskContent {
+  width: 100%;
+  line-break: anywhere;
+  text-align: left;
+  padding: 12px 16px;
+}
+
+.taskRemove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding-right: 16px;
+  color: #808080;
+  transition: ease 0.3s color;
+}
+
+.taskRemove:hover {
+  color: #ff4d4d;
+}
+
+/* checkbox css */
+
+.taskCheckbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 16px;
+  margin-top: 9px;
+  appearance: none;
+  position: relative;
+}
+
+/* Create custom checkbox appearance */
+.taskCheckbox[type="checkbox"]::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #4ea8de;
+  border-radius: 99px;
+  position: relative;
+}
+
+/* Style custom checkbox when checked */
+.taskCheckbox[type="checkbox"]:checked::before {
+  background-color: #5e60ce; /* Change to your desired color */
+  border: 2px solid #5e60ce;
+}
+
+/* Checkmark styling */
+.taskCheckbox[type="checkbox"]:checked:after {
+  content: "\2713";
+  display: inline-block;
+  position: absolute;
+  top: 54%;
+  left: 58%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 16px;
+}
+
+.trashIcon {
+  margin-top: 4px;
+  font-size: 18px;
 }

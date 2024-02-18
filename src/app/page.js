@@ -1,95 +1,137 @@
+"use client";
+
 import Image from "next/image";
-import styles from "./page.module.css";
+import React, { useState, useEffect } from "react";
+import { FiTrash } from "react-icons/fi";
 
 export default function Home() {
+  const [tasks, setTasks] = useState([]);
+  const [taskInput, setTaskInput] = useState("");
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    }
+  }, []);
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    if (taskInput.trim() !== "") {
+      const newTask = {
+        id: tasks.length + 1,
+        content: taskInput,
+        completed: false,
+      };
+      const updatedTasks = [...tasks, newTask];
+      setTasks(updatedTasks);
+      setTaskInput("");
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    }
+  };
+
+  const handleTaskCompletion = (taskId) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  };
+
+  const handleTaskRemoval = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  };
+
+  const title = "TaskTrackrr | Homepage";
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <div>
+      <title>{title}</title>
+      <div className="backgroundBlack">
+        <Image
+          src="/logo.png"
+          alt=""
+          className="imgLogo"
+          width={230}
+          height={123}
+        />
+        <div className="upperContent">
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              placeholder="Add a New Task"
+              className="addTaskInput"
+              value={taskInput}
+              onChange={(e) => setTaskInput(e.target.value)}
             />
-          </a>
+            <button type="submit" className="addTaskButton">
+              <div className="flex">
+                <p>Add Task</p>
+                <img src="/plus.svg" />
+              </div>
+            </button>
+          </form>
         </div>
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="content">
+        <div className="flex2 sp">
+          <div className="flex2">
+            <p className="taskCreatedP">All Tasks</p>
+            <p className="counter">{tasks.length}</p>
+          </div>
+          <div className="flex2">
+            <p className="taskCompletedP">Completed</p>
+            <p className="counter">
+              {tasks.filter((task) => task.completed).length}
+            </p>
+          </div>
+        </div>
+
+        {tasks.length === 0 ? (
+          <div className="noTasks">
+            <img src="/clipboard.svg" />
+            <div className="nothingParagraph">
+              <p>You do not have any task</p>
+              <p>Add tasks and organize them</p>
+            </div>
+          </div>
+        ) : (
+          <div className="tasksContainer">
+            {tasks.map((task) => (
+              <div key={task.id} className="task">
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => handleTaskCompletion(task.id)}
+                  className="taskCheckbox"
+                />
+                <p
+                  style={{
+                    textDecoration: task.completed ? "line-through" : "none",
+                    color: task.completed ? "#808080" : "inherit",
+                  }}
+                  className="taskContent"
+                >
+                  {task.content}
+                </p>
+                <button
+                  onClick={() => handleTaskRemoval(task.id)}
+                  className="taskRemove"
+                >
+                  {/* <img src="/trash.svg" /> */}
+                  <FiTrash className="trashIcon" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }
